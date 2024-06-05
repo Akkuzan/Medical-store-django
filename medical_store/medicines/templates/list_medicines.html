@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Medicines</h2>
+<form method="get" action="{% url 'search_medicine' %}">
+    {% csrf_token %}
+    <input type="text" name="query" placeholder="Search medicines...">
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>quantity</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medicine in medicines %}
+        <tr>
+            <td>{{ medicine.name }}</td>
+            <td>{{ medicine.description }}</td>
+            <td>{{ medicine.price }}</td>
+            <td>{{medicine.quantity}}</td>
+            <td><a href="{% url 'edit_medicine' medicine.id %}">Edit</a></td>
+            <td><a href="{% url 'delete_medicine' medicine.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
